@@ -1,8 +1,8 @@
 package ru.netology.manager;
 
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.netology.domain.Product;
 import ru.netology.repository.ProductRepository;
 
@@ -18,12 +18,12 @@ public class ProductManager {
         repository.save(product);
     }
 
-    public Product[] searchBy(String text) {
+    public Product[] searchBy(String search) {
         Product[] result = new Product[0];
         Product[] tmp;
         int length = 0;
         for (Product product : repository.findAll()) {
-            if (matches(product, text)) {
+            if ((product.matches(search))) {
                 length++;
                 tmp = Arrays.copyOf(result, length);
                 tmp[length - 1] = product;
@@ -31,9 +31,5 @@ public class ProductManager {
             }
         }
         return result;
-    }
-
-    public boolean matches(Product product, String search) {
-        return product.getName().contains(search);
     }
 }
