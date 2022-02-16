@@ -11,7 +11,6 @@ import ru.netology.domain.Smartphone;
 import ru.netology.repository.ProductRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -77,16 +76,22 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void shouldMatchesAndReturnTrue() {
-        boolean actual = manager.matches(phone, "S21");
-        boolean expected = true;
-        assertEquals(expected, actual);
+    public void shouldSearchByBookAuthor() {
+        doReturn(returned).when(repository).findAll();
+
+        Product[] actual = manager.searchBy("well");
+        Product[] expected = new Product[]{book};
+        assertArrayEquals(expected, actual);
+        verify(repository).findAll();
     }
 
     @Test
-    public void shouldMatchesAndReturnFalse() {
-        boolean actual = manager.matches(phone, "S20");
-        boolean expected = false;
-        assertEquals(expected, actual);
+    public void shouldSearchBySmartphoneBrand() {
+        doReturn(returned).when(repository).findAll();
+
+        Product[] actual = manager.searchBy("Apple");
+        Product[] expected = new Product[]{newPhone};
+        assertArrayEquals(expected, actual);
+        verify(repository).findAll();
     }
 }
