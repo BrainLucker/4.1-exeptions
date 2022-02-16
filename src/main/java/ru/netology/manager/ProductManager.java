@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.netology.domain.Product;
+import ru.netology.exception.AlreadyExistsException;
 import ru.netology.repository.ProductRepository;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 public class ProductManager {
     private ProductRepository repository;
 
-    public void add(Product product) {
+    public void add(Product product) throws AlreadyExistsException {
         repository.save(product);
     }
 

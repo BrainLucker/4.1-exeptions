@@ -1,9 +1,12 @@
 package ru.netology.repository;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Product;
 import ru.netology.domain.Book;
 import ru.netology.domain.Smartphone;
+import ru.netology.exception.NotFoundException;
+import ru.netology.exception.AlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,11 +25,16 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    public void shouldSave() {
+    public void shouldSave() throws AlreadyExistsException {
         repository.save(newPhone);
         Product[] actual = repository.findAll();
         Product[] expected = new Product[]{book, phone, newPhone};
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldTrowAlreadyExistsException() {
+        Assertions.assertThrows(AlreadyExistsException.class, () -> repository.save(phone));
     }
 
     @Test
@@ -38,10 +46,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    public void shouldNotRemoveIfCantFindById() {
-        repository.removeById(3);
-        Product[] actual = repository.findAll();
-        Product[] expected = products;
-        assertArrayEquals(expected, actual);
+    public void shouldTrowNotFoundException() {
+        Assertions.assertThrows(NotFoundException.class, () -> repository.removeById(3));
     }
 }

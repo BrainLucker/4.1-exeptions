@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
+import ru.netology.exception.AlreadyExistsException;
 import ru.netology.repository.ProductRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -26,7 +27,7 @@ public class ProductManagerTest {
     private Product[] returned = new Product[]{book, phone, newPhone};
 
     @Test
-    public void shouldAdd() {
+    public void shouldAdd() throws AlreadyExistsException {
         manager = new ProductManager(new ProductRepository());
         manager.add(book);
 
