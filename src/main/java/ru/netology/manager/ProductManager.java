@@ -2,14 +2,12 @@ package ru.netology.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import ru.netology.domain.Product;
 import ru.netology.exception.AlreadyExistsException;
 import ru.netology.repository.ProductRepository;
 
 import java.util.Arrays;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class ProductManager {
